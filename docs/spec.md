@@ -1,7 +1,7 @@
 # AgentBox MVP Specification
 
 > Status: Draft for review  
-> Owner: 拓总  
+> Owner: Project maintainer  
 > Purpose: This document is a spec-driven product and implementation guide for building AgentBox with AI coding tools such as Codex, Claude Code, or Kimi Code.
 
 ---
@@ -16,11 +16,11 @@ The original problem is simple:
 
 AgentBox should make it easy to create and run dedicated agents for different owners:
 
-- 拓总的 Hermes Agent
-- 老婆的 Hermes Agent
-- 妈妈的 Hermes Agent
+- Project maintainer的 Hermes Agent
+- family member A的 Hermes Agent
+- family member B的 Hermes Agent
 - 某个员工的 Hermes Agent
-- 拓总的 OpenClaw / future coding agent
+- Project maintainer的 OpenClaw / future coding agent
 
 Each agent should have its own memory, sessions, workspace, configuration, login state, and runtime environment. Agents must not pollute each other or the host machine.
 
@@ -125,9 +125,9 @@ The backend, CLI, and web console should all use the same domain model and servi
 
 Examples:
 
-- `tuo`
-- `mom`
-- `wife`
+- `primary-user`
+- `family-member-1`
+- `family-member-2`
 - `employee-zhangsan`
 
 MVP rules:
@@ -261,9 +261,9 @@ MVP MUST run each agent as a separate long-running container.
 Example:
 
 ```text
-agentbox-hermes-mom
-agentbox-hermes-wife
-agentbox-openclaw-tuo
+agentbox-hermes-family-member-1
+agentbox-hermes-family-member-2
+agentbox-openclaw-primary
 ```
 
 Each container MUST have:
@@ -862,7 +862,7 @@ resources:
 CLI example:
 
 ```bash
-agentbox agent create mom-hermes --owner mom --runtime hermes --cpu 0.5 --memory 1g
+agentbox agent create family-hermes --owner family-member-1 --runtime hermes --cpu 0.5 --memory 1g
 ```
 
 Disk quota can be recorded in the model but may be implemented later, because cross-platform disk quota support is more complex.
@@ -1285,8 +1285,8 @@ MVP is acceptable when all the following are true:
 
 1. User can install/init AgentBox on Linux with Podman.
 2. User can configure a platform model provider and API key once.
-3. User can create an owner named `mom`.
-4. User can create a Hermes agent for `mom`.
+3. User can create an owner named `family-member-1`.
+4. User can create a Hermes agent for `family-member-1`.
 5. AgentBox creates a separate data directory for the Hermes agent.
 6. AgentBox builds or uses a local Hermes runtime image.
 7. AgentBox starts the Hermes agent as a Podman container.

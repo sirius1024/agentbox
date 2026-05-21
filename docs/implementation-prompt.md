@@ -198,10 +198,10 @@ The first useful demo should prove:
 
 1. `agentbox init`
 2. configure platform model provider/key once
-3. create Owner `mom`
-4. create Hermes Agent `mom-hermes`
+3. create Owner `family-member-1`
+4. create Hermes Agent `family-hermes`
 5. build Hermes runtime image
-6. start `mom-hermes` as Podman container
+6. start `family-hermes` as Podman container
 7. verify container has independent `HERMES_HOME`
 8. verify host home and other Agent directories are not mounted
 9. view status/logs from CLI and Web
