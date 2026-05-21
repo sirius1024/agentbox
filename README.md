@@ -7,4 +7,4 @@ Current documents:
 - `docs/spec.md` — main MVP product + technical specification.
 - `docs/implementation-brief.md` — concise handoff brief for Codex / Claude Code / Kimi Code implementation.
 
-Status: draft, pending Project maintainer review before creating/uploading a GitHub repository.
+Status: draft specification for review before implementation.

@@ -16,11 +16,11 @@ The original problem is simple:
 
 AgentBox should make it easy to create and run dedicated agents for different owners:
 
-- Project maintainer的 Hermes Agent
-- family member A的 Hermes Agent
-- family member B的 Hermes Agent
-- 某个员工的 Hermes Agent
-- Project maintainer的 OpenClaw / future coding agent
+- Primary user Hermes Agent
+- Family member A Hermes Agent
+- Family member B Hermes Agent
+- Employee Hermes Agent
+- Primary user OpenClaw / future coding agent
 
 Each agent should have its own memory, sessions, workspace, configuration, login state, and runtime environment. Agents must not pollute each other or the host machine.
 
