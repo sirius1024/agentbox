@@ -1,6 +1,8 @@
 # AgentBox
 
-[简体中文](README.zh-CN.md)
+[简体中文](README.zh-CN.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)
+
+[![Star History Chart](https://api.star-history.com/svg?repos=sirius1024/agentbox&type=Date)](https://www.star-history.com/#sirius1024/agentbox&Date)
 
 **AgentBox is an open product idea, MVP spec, and prompt kit for building lightweight multi-agent runtime managers.**
 

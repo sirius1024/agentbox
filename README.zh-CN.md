@@ -1,6 +1,8 @@
 # AgentBox
 
-[English](README.md)
+[English](README.md) · [Français](README.fr.md) · [Deutsch](README.de.md) · [Русский](README.ru.md)
+
+[![Star History Chart](https://api.star-history.com/svg?repos=sirius1024/agentbox&type=Date)](https://www.star-history.com/#sirius1024/agentbox&Date)
 
 **AgentBox 是一个开放的产品创意、MVP 规格和 Prompt Kit，用于构建轻量级多 Agent 运行时管理器。**
 
