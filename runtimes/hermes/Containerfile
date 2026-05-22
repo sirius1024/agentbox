@@ -1,0 +1,22 @@
+# Placeholder Hermes runtime image (filled in during Milestone 3).
+#
+# AgentBox builds this locally as ``agentbox/hermes-runtime:<version>``.
+# Spec: docs/spec.md section 8.4.
+FROM docker.io/library/python:3.11-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git curl ca-certificates build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Hermes Agent installation will be added in Milestone 3.
+# Placeholder: a non-root user and the directory layout AgentBox expects.
+RUN useradd --create-home --home-dir /agent --shell /bin/bash agent \
+    && mkdir -p /agent/home /agent/workspace \
+    && chown -R agent:agent /agent
+
+ENV HERMES_HOME=/agent/home \
+    HOME=/agent
+WORKDIR /agent/workspace
+USER agent
+
+CMD ["sleep", "infinity"]

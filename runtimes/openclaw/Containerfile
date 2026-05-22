@@ -1,0 +1,17 @@
+# Placeholder OpenClaw runtime image (filled in during Milestone 7).
+# Spec: docs/spec.md section 9.
+FROM docker.io/library/python:3.11-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends git curl ca-certificates build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN useradd --create-home --home-dir /agent --shell /bin/bash agent \
+    && mkdir -p /agent/home /agent/workspace \
+    && chown -R agent:agent /agent
+
+ENV HOME=/agent
+WORKDIR /agent/workspace
+USER agent
+
+CMD ["sleep", "infinity"]
