@@ -2,156 +2,180 @@
 
 [简体中文](README.zh-CN.md)
 
-**AgentBox is an open product idea, MVP specification, and prompt kit for building lightweight multi-agent runtime managers.**
+**AgentBox is an open product idea, MVP spec, and prompt kit for building lightweight multi-agent runtime managers.**
 
-The goal is simple: make it easy to run many isolated, long-running AI agent instances on one personal computer, home server, lab machine, or small team server.
+It helps builders use their preferred coding agent to create systems that run many isolated, long-running AI agent instances on one personal computer, home server, lab machine, or small team server.
 
-AgentBox is not only a software implementation. It is a reusable product concept that you can implement with your preferred coding agent, stack, branch workflow, and design choices.
-
-Use this repository to:
-
-- understand the AgentBox product idea;
-- reuse the MVP requirements and safety rules;
-- feed the prompts to Codex, Claude Code, Kimi Code, OpenClaw, or another coding agent;
-- fork, remix, or build your own implementation;
-- contribute improved specs, prompts, diagrams, or reference implementations.
+This repository is not a fixed implementation. It is a reusable product brief and prompt library for Codex, Claude Code, Kimi Code, OpenClaw, Cursor, or any other coding agent.
 
 ---
 
-## How to Use AgentBox With Your Coding Agent
+## Who This Is For
 
-AgentBox is designed to be used as a **prompt kit**. You do not need to follow a fixed branch plan or use a specific coding agent.
+AgentBox is for builders who want to:
 
-### Option A: Build a New Implementation
+- run multiple dedicated AI agents on one machine;
+- give each agent independent memory, sessions, config, workspace, and runtime home;
+- avoid manually writing container scripts and copying API keys;
+- use a coding agent to generate their own implementation;
+- fork, remix, or extend the product idea.
 
-1. Create a new empty repository or local project.
-2. Open your preferred coding agent, such as Codex, Claude Code, Kimi Code, OpenClaw, Cursor, or another tool.
-3. Give it this repository as context, or paste these files into the chat:
-   - `README.md`
-   - `docs/vision.md`
-   - `docs/mvp-spec.md`
-   - `docs/safety-rules.md`
-   - `prompts/00-build-from-scratch.md`
-4. Tell the coding agent:
+If you are looking for an installable finished product, this repository is not that yet. It is the spec and prompt kit for creating one.
 
-```text
-Use the AgentBox product spec and prompt kit as input.
-Build the first useful implementation from prompts/00-build-from-scratch.md.
-Preserve the safety rules in docs/safety-rules.md.
-Do not implement unrelated future features yet.
-```
+---
 
-### Option B: Continue an Existing Implementation
+## Quick Start: Give AgentBox to Your Coding Agent
 
-If you already have an AgentBox-like project, choose the milestone prompt that matches your next step:
+### 1. Pick your starting point
 
-| Need | Prompt |
+| Situation | Use this prompt |
 | --- | --- |
-| Start from scratch | `prompts/00-build-from-scratch.md` |
+| Start a new implementation | `prompts/00-build-from-scratch.md` |
 | Add core domain and CRUD | `prompts/01-core-crud.md` |
 | Add Podman/container lifecycle | `prompts/02-podman-runtime.md` |
 | Add Hermes Agent runtime | `prompts/03-hermes-runtime.md` |
 | Add backup/restore/diagnose/upgrade | `prompts/04-lifecycle-backup.md` |
 | Add Web Console | `prompts/05-web-console.md` |
+| Need a short general prompt | `prompts/variants/minimal.md` |
 
-A simple instruction to your coding agent can be:
+### 2. Provide the coding agent with context
+
+Give it this repository, or paste these files:
 
 ```text
-Read the AgentBox README, MVP spec, safety rules, and the selected milestone prompt.
-Implement only that milestone.
-Keep the implementation simple.
-Do not violate the safety rules.
+README.md
+docs/vision.md
+docs/mvp-spec.md
+docs/safety-rules.md
+prompts/<selected-prompt>.md
+```
+
+### 3. Use a direct task instruction
+
+```text
+Use the AgentBox product spec and prompt kit as input.
+Implement the milestone in prompts/<selected-prompt>.md.
+Keep the implementation simple and focused.
+Preserve the safety rules in docs/safety-rules.md.
+Do not implement unrelated future features yet.
 Add tests and explain how to run them.
 ```
 
-### Option C: Use a Short Variant Prompt
-
-If your coding agent already has enough repository context, use one of the shorter prompts:
-
-- `prompts/variants/minimal.md`
-- `prompts/variants/codex.md`
-- `prompts/variants/claude-code.md`
-- `prompts/variants/kimi-code.md`
-
-You can edit, shorten, expand, or remix any prompt before using it.
-
-### What the Coding Agent Should Not Do First
-
-Do not let the first implementation drift into:
-
-- SaaS multi-tenancy;
-- Kubernetes orchestration;
-- enterprise RBAC/audit;
-- marketplace features;
-- a custom messaging gateway;
-- Docker Desktop dependency;
-- unsafe host mounts or secret leakage.
-
-The first useful implementation should stay focused on one-machine, isolated, long-running agent instances.
+You may use any branch workflow, stack, or coding agent. The safety rules and acceptance criteria matter more than exact file layout.
 
 ---
 
-## Why AgentBox?
+## How to Iterate When Requirements Change
 
-Personal and team AI agents are becoming useful, but running more than one serious agent is still too manual.
+AgentBox is meant to evolve through prompt-driven iteration. When you change or add requirements, do **not** just tell your coding agent “continue.” Give it a clear delta.
 
-A user may want separate agents for:
+Recommended loop:
 
-- personal assistance;
-- coding;
-- research;
-- operations;
-- family use;
-- small team support;
-- experiments with different frameworks such as Hermes Agent, OpenClaw, Claude Code wrappers, Codex CLI wrappers, or other local/remote agent runtimes.
+1. **Write the change first**
+   - Update your own notes, `docs/mvp-spec.md`, or create a new prompt under `prompts/`.
+   - Keep the change small enough to verify.
 
-Each agent should have its own memory, workspace, sessions, configuration, runtime home, login state, and lifecycle.
+2. **Tell the coding agent what changed**
+   - New behavior;
+   - changed behavior;
+   - removed behavior;
+   - constraints that must remain true.
 
-Users should not need to manually create containers, write startup scripts, copy API keys, separate data directories, or remember which process belongs to which agent.
+3. **Define acceptance criteria**
+   - What commands, tests, UI flows, or demos prove the change works?
 
----
+4. **Ask the coding agent to update docs/prompts if the product behavior changed**
+   - Code should not drift away from the prompt kit.
 
-## Repository Positioning
+5. **Review the result against safety rules**
+   - Especially mounts, secrets, isolation, and command execution.
 
-This repository is currently focused on:
+### Requirement-change prompt template
 
 ```text
-open idea + MVP spec + prompt kit + optional reference implementations
+We are iterating on an AgentBox implementation.
+
+Context:
+- Read README.md, docs/mvp-spec.md, docs/safety-rules.md, and the relevant prompt under prompts/.
+- Preserve the existing product intent: one-machine, isolated, long-running agent instances.
+
+Requirement change:
+- Add/change/remove: <describe the exact requirement delta>
+
+Must keep:
+- No host-home mount.
+- No host-root mount.
+- No Docker/Podman socket mount.
+- No other-agent data mount.
+- No secret leakage.
+- No unsafe shell command concatenation.
+
+Out of scope:
+- <list what should not be implemented in this iteration>
+
+Acceptance criteria:
+- <test/demo/check 1>
+- <test/demo/check 2>
+- <test/demo/check 3>
+
+Tasks:
+1. Update the implementation.
+2. Add or update tests.
+3. Update docs or prompts if behavior changed.
+4. Summarize what changed, how to run it, and what remains out of scope.
 ```
 
-It intentionally does **not** force one implementation workflow.
+This pattern keeps the coding agent grounded without forcing one rigid engineering process.
 
-You may:
+---
 
-- start from a clean repository;
-- start from your own fork;
-- use this repo only as a product brief;
-- use any branch naming convention;
-- use any coding agent;
-- use any reasonable implementation stack;
-- create your own prompt variants.
+## Core Product Idea
 
-The important part is to preserve the AgentBox product intent, MVP boundaries, and safety constraints.
+AgentBox should make personal and small-team agent hosting feel like creating managed app instances:
+
+1. create an owner;
+2. create an agent for that owner;
+3. choose a runtime such as Hermes Agent, OpenClaw, or another agent framework;
+4. start the agent in an isolated long-running container or sandbox;
+5. connect it through the runtime's native interface or gateway;
+6. monitor, repair, backup, restore, and upgrade it.
+
+Each agent should have its own:
+
+- runtime home;
+- workspace;
+- memory and sessions;
+- configuration;
+- login state;
+- lifecycle.
+
+---
+
+## Non-Negotiable Safety Rules
+
+Any AgentBox-like implementation should preserve these rules:
+
+- no Docker Desktop dependency;
+- no host home mounted into agent runtimes;
+- no host root mounted into agent runtimes;
+- no other agent's data mounted into an agent runtime;
+- no Docker or Podman socket mounted into agent runtimes;
+- no secret values printed through CLI, API, logs, or UI;
+- no unsafe shell string concatenation for runtime commands.
+
+See `docs/safety-rules.md` for details.
 
 ---
 
 ## What Should Stay Consistent
 
-An AgentBox-like implementation should keep these principles:
-
 - one machine first;
 - many isolated long-running agent instances;
 - one owner can have multiple agents;
 - one agent belongs to one owner in the MVP;
-- each agent has independent runtime home, memory, sessions, workspace, and config;
-- platform-level shared model provider/key support, so each end user does not need to manage model credentials;
+- platform-level model provider/key support;
 - container or sandbox based isolation;
-- Podman/rootless-first runtime is recommended;
-- no Docker Desktop dependency;
-- no mounting host home into agent containers;
-- no mounting other agents' data into an agent container;
-- no mounting Docker or Podman sockets into agent containers;
-- no leaking secret values through CLI, API, logs, or UI.
+- Podman/rootless-first runtime is recommended.
 
 ---
 
@@ -160,30 +184,27 @@ An AgentBox-like implementation should keep these principles:
 You are encouraged to remix:
 
 - implementation language;
-- web framework;
+- backend framework;
 - database;
 - UI design;
+- coding agent;
 - branch workflow;
 - prompt style;
-- coding agent;
 - runtime driver;
-- packaging approach;
 - deployment model;
-- milestone ordering, as long as the MVP intent stays coherent.
+- milestone order.
 
-The suggested implementation stack is only a recommendation:
+Suggested stack, if you want one:
 
-- backend: Python + FastAPI;
-- CLI: Typer;
-- database: SQLite;
-- frontend: React + Vite + TypeScript;
-- runtime: Podman/rootless Podman.
-
-Alternative stacks are welcome.
+- Python + FastAPI;
+- Typer CLI;
+- SQLite;
+- React + Vite + TypeScript;
+- Podman/rootless Podman.
 
 ---
 
-## Suggested Repository Map
+## Repository Map
 
 ```text
 docs/
@@ -209,100 +230,28 @@ prompts/
 
 ---
 
-## Suggested Milestones
+## MVP Non-Goals
 
-These milestones are guidance, not a required branch plan.
+Do not let the first useful implementation drift into:
 
-1. **Product spec and prompt kit**
-   - clarify the idea, MVP, safety rules, and acceptance demo;
-   - create reusable prompts for coding agents.
+- SaaS multi-tenancy;
+- Kubernetes orchestration;
+- enterprise RBAC/audit;
+- marketplace features;
+- serverless/Knative wake-up;
+- custom messaging gateway replacement;
+- Docker Desktop dependency;
+- unsafe host mounts or secret leakage.
 
-2. **Core domain and CRUD**
-   - owners;
-   - agents;
-   - platform settings;
-   - secret metadata without secret leakage;
-   - CLI/API optional.
-
-3. **Podman runtime driver**
-   - build/start/stop/restart/remove containers;
-   - inspect status;
-   - logs;
-   - exec/shell;
-   - mount validation.
-
-4. **Hermes runtime P0**
-   - independent `HERMES_HOME` per agent;
-   - generated config and env;
-   - shared model key injection;
-   - `hermes gateway run` as the long-running command.
-
-5. **Lifecycle management**
-   - backup;
-   - restore;
-   - reset;
-   - diagnose;
-   - upgrade.
-
-6. **Web console**
-   - login;
-   - dashboard;
-   - owners;
-   - agents;
-   - logs;
-   - settings;
-   - backups.
-
-7. **Additional runtimes**
-   - OpenClaw;
-   - coding-agent wrappers;
-   - custom MCP agents;
-   - other agent frameworks.
-
----
-
-## Prompt Kit Quick Start
-
-Pick one prompt from `prompts/` and paste it into your preferred coding agent.
-
-For a new implementation, start with:
-
-```text
-prompts/00-build-from-scratch.md
-```
-
-For an existing implementation that already has core CRUD, continue with:
-
-```text
-prompts/02-podman-runtime.md
-```
-
-You can freely edit the prompts before using them.
-
----
-
-## Non-Goals for the MVP
-
-AgentBox MVP should not start as:
-
-- a SaaS multi-tenant platform;
-- a Kubernetes orchestration system;
-- an enterprise RBAC/audit suite;
-- a marketplace;
-- a serverless/Knative wake-up system;
-- a replacement gateway for WeChat, Telegram, Feishu, Slack, etc.;
-- a tool that requires Docker Desktop;
-- a system that exposes host home directories or container sockets to agents.
-
-Those may become future experiments, but they should not dominate the first useful version.
+These may become future experiments, but they should not dominate the MVP.
 
 ---
 
 ## Current Status
 
-This repository has been repositioned as a product idea, MVP specification, and prompt kit.
+This repository is currently a product idea, MVP specification, and prompt kit.
 
-Earlier implementation code has intentionally been removed from the main branch to keep the project open-ended and agent-friendly.
+Earlier implementation code was intentionally removed from the main branch to keep the project open-ended and agent-friendly.
 
 Future contributors may add reference implementations under a clearly named directory such as:
 
@@ -310,10 +259,8 @@ Future contributors may add reference implementations under a clearly named dire
 reference-implementations/python-fastapi/
 ```
 
-without turning the whole repository back into one fixed implementation.
-
 ---
 
 ## License
 
-MIT. See [LICENSE](LICENSE) if present. If a generated implementation uses this repository as input, keep the license and attribution appropriate for your project.
+MIT. See [LICENSE](LICENSE).
