@@ -116,4 +116,4 @@ The test suite uses a temporary `AGENTBOX_HOME` and a per-test SQLite database; 
 
 ## License
 
-Apache-2.0 (LICENSE file to be added).
+MIT. See [LICENSE](LICENSE).
