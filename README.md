@@ -1,5 +1,7 @@
 # AgentBox
 
+[简体中文](README.zh-CN.md)
+
 **AgentBox is an open product idea, MVP specification, and prompt kit for building lightweight multi-agent runtime managers.**
 
 The goal is simple: make it easy to run many isolated, long-running AI agent instances on one personal computer, home server, lab machine, or small team server.
@@ -13,6 +15,79 @@ Use this repository to:
 - feed the prompts to Codex, Claude Code, Kimi Code, OpenClaw, or another coding agent;
 - fork, remix, or build your own implementation;
 - contribute improved specs, prompts, diagrams, or reference implementations.
+
+---
+
+## How to Use AgentBox With Your Coding Agent
+
+AgentBox is designed to be used as a **prompt kit**. You do not need to follow a fixed branch plan or use a specific coding agent.
+
+### Option A: Build a New Implementation
+
+1. Create a new empty repository or local project.
+2. Open your preferred coding agent, such as Codex, Claude Code, Kimi Code, OpenClaw, Cursor, or another tool.
+3. Give it this repository as context, or paste these files into the chat:
+   - `README.md`
+   - `docs/vision.md`
+   - `docs/mvp-spec.md`
+   - `docs/safety-rules.md`
+   - `prompts/00-build-from-scratch.md`
+4. Tell the coding agent:
+
+```text
+Use the AgentBox product spec and prompt kit as input.
+Build the first useful implementation from prompts/00-build-from-scratch.md.
+Preserve the safety rules in docs/safety-rules.md.
+Do not implement unrelated future features yet.
+```
+
+### Option B: Continue an Existing Implementation
+
+If you already have an AgentBox-like project, choose the milestone prompt that matches your next step:
+
+| Need | Prompt |
+| --- | --- |
+| Start from scratch | `prompts/00-build-from-scratch.md` |
+| Add core domain and CRUD | `prompts/01-core-crud.md` |
+| Add Podman/container lifecycle | `prompts/02-podman-runtime.md` |
+| Add Hermes Agent runtime | `prompts/03-hermes-runtime.md` |
+| Add backup/restore/diagnose/upgrade | `prompts/04-lifecycle-backup.md` |
+| Add Web Console | `prompts/05-web-console.md` |
+
+A simple instruction to your coding agent can be:
+
+```text
+Read the AgentBox README, MVP spec, safety rules, and the selected milestone prompt.
+Implement only that milestone.
+Keep the implementation simple.
+Do not violate the safety rules.
+Add tests and explain how to run them.
+```
+
+### Option C: Use a Short Variant Prompt
+
+If your coding agent already has enough repository context, use one of the shorter prompts:
+
+- `prompts/variants/minimal.md`
+- `prompts/variants/codex.md`
+- `prompts/variants/claude-code.md`
+- `prompts/variants/kimi-code.md`
+
+You can edit, shorten, expand, or remix any prompt before using it.
+
+### What the Coding Agent Should Not Do First
+
+Do not let the first implementation drift into:
+
+- SaaS multi-tenancy;
+- Kubernetes orchestration;
+- enterprise RBAC/audit;
+- marketplace features;
+- a custom messaging gateway;
+- Docker Desktop dependency;
+- unsafe host mounts or secret leakage.
+
+The first useful implementation should stay focused on one-machine, isolated, long-running agent instances.
 
 ---
 
